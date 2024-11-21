@@ -1,6 +1,6 @@
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
-const ExcelJS = require('exceljs');
+const ExcelJS = require('exceljs'); // استيراد مكتبة ExcelJS لقراءة ملفات Excel
 require('dotenv').config();
 
 // إعداد العميل
@@ -13,20 +13,20 @@ let data = [];
 async function loadDataFromExcel() {
     try {
         const workbook = new ExcelJS.Workbook();
-        await workbook.xlsx.readFile('gas18-11-2024.xlsx');
-        const worksheet = workbook.worksheets[0];
+        await workbook.xlsx.readFile('gas18-11-2024.xlsx'); // اسم الملف هنا
+        const worksheet = workbook.worksheets[0]; // العمل مع أول ورقة
 
         worksheet.eachRow((row) => {
-            const idNumber = row.getCell(1).value?.toString().trim();
-            const name = row.getCell(2).value?.toString().trim();
-            const province = row.getCell(3).value?.toString().trim();
-            const district = row.getCell(4).value?.toString().trim();
-            const area = row.getCell(5).value?.toString().trim();
-            const distributorId = row.getCell(6).value?.toString().trim();
-            const distributorName = row.getCell(7).value?.toString().trim();
-            const distributorPhone = row.getCell(8).value?.toString().trim();
-            const status = row.getCell(9).value?.toString().trim();
-            const orderDate = row.getCell(12).value?.toString().trim();
+            const idNumber = row.getCell(1).value?.toString().trim(); // رقم الهوية
+            const name = row.getCell(2).value?.toString().trim(); // اسم المواطن
+            const province = row.getCell(3).value?.toString().trim(); // المحافظة
+            const district = row.getCell(4).value?.toString().trim(); // المدينة
+            const area = row.getCell(5).value?.toString().trim(); // الحي
+            const distributorId = row.getCell(6).value?.toString().trim(); // هوية الموزع
+            const distributorName = row.getCell(7).value?.toString().trim(); // اسم الموزع
+            const distributorPhone = row.getCell(8).value?.toString().trim(); // رقم جوال الموزع
+            const status = row.getCell(9).value?.toString().trim(); // حالة الطلب
+            const orderDate = row.getCell(12).value?.toString().trim(); // تاريخ الطلب
 
             if (idNumber && name) {
                 data.push({
@@ -43,7 +43,7 @@ async function loadDataFromExcel() {
                 });
             }
         });
-        console.log('تم تحميل البيانات بنجاح.');
+        console.log('تم تحميل البيانات بنجاح من ملف Excel.');
     } catch (error) {
         console.error('حدث خطأ أثناء قراءة ملف Excel:', error.message);
     }
